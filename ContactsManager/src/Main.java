@@ -1,7 +1,10 @@
 import java.util.Scanner;
 public class Main {
+	
 	public static void main(String[] args) {
+		
 		ContactsManager myContactsManager = new ContactsManager();
+		
 		Contact contact1 = new Contact();
 		contact1.name = "name1";
 		contact1.phoneNumber = "123123";
@@ -24,14 +27,20 @@ public class Main {
 		
 		System.out.print("Type a name to search: ");
 		Scanner scanner = new Scanner(System.in);
-		String name = scanner.nextLine();
-		Contact searchedContact = myContactsManager.searchContact(name);
-		if (searchedContact.name.equals(name)) {
-			System.out.println(searchedContact.name + ": "+searchedContact.phoneNumber);
-		}
-		else {
-			System.out.println("There is no student with that name");
-		}
+		String nameForSearch = scanner.nextLine();
+		scanner.close();
 		
+		try {
+			for(int i =0;i<myContactsManager.myContacts.length;i++) {
+				if(myContactsManager.myContacts[i].name.equals(nameForSearch)) {
+					System.out.println(myContactsManager.myContacts[i].name + 
+							": "+myContactsManager.myContacts[i].phoneNumber);
+					break;
+				}
+			}
+		}
+		catch(NullPointerException e){
+			System.out.println("There is no such a student.");
+		}
 	}
 }
